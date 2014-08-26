@@ -1,5 +1,5 @@
 (ns examples.basics2.core
-	(:require [pi.core :as pi]))
+  (:require [pi.core :as pi]))
 
 (def stage (pi/stage))
 
@@ -18,9 +18,9 @@
 (.addChild stage sprite)
 
 (defn animate
-	[]
-	(js/requestAnimFrame animate)
-	(pi/rotate! sprite 0.1)
-	(.render renderer stage))
+  []
+  (js/requestAnimFrame animate)
+  (pi/rotate! sprite 0.1)
+  (.render renderer stage))
 
 (animate)

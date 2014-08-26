@@ -1,5 +1,5 @@
 (ns examples.basics.core
-	(:require [pi.core :as pi]))
+  (:require [pi.core :as pi]))
 
 (def renderer (pi/renderer-auto 400 300))
 
@@ -15,11 +15,11 @@
 (.addChild stage bunny)
 
 (defn animate
-	[]
-	(do
-		(js/requestAnimFrame animate)
-		(pi/rotate! bunny 0.1)
-		(.render renderer stage)))
+  []
+  (do
+    (js/requestAnimFrame animate)
+    (pi/rotate! bunny 0.1)
+    (.render renderer stage)))
 
 (animate)
 
