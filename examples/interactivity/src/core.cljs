@@ -16,31 +16,31 @@
 
 (defn mouse-down
   [e]
-  (this-as this
-    (set! (.-isdown this) true)
-    (.setTexture this button-down-texture)))
+  (this-as button
+    (set! (.-isdown button) true)
+    (.setTexture button button-down-texture)))
 
 (defn mouse-up
   [e]
-  (this-as this
-    (set! (.-isdown this) false)
-    (if (.-isOver this)
-      (.setTexture this button-over-texture)
-      (.setTexture this button-texture))))
+  (this-as button
+    (set! (.-isdown button) false)
+    (if (.-isOver button)
+      (.setTexture button button-over-texture)
+      (.setTexture button button-texture))))
 
 (defn mouse-over
   [e]
-  (this-as this
-    (set! (.-isOver this) true)
-    (when-not (.-isdown this)
-      (.setTexture this button-over-texture))))
+  (this-as button
+    (set! (.-isOver button) true)
+    (when-not (.-isdown button)
+      (.setTexture button button-over-texture))))
 
 (defn mouse-out
   [e]
-  (this-as this
-    (set! (.-isOver this) true)
-    (when-not (.-isdown this)
-      (.setTexture this button-texture))))
+  (this-as button
+    (set! (.-isOver button) true)
+    (when-not (.-isdown button)
+      (.setTexture button button-texture))))
 
 (def button-positions [[175 75] [455 75] [280 210] [175 325] [485 305]])
 
