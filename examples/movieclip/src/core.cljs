@@ -3,9 +3,9 @@
 
 (def max-explosions 50)
 
-(def renderer (pi/renderer-auto 800 600))
+(def renderer (pi/renderer-auto [800 600]))
 
-(.appendChild js/document.body (.-view renderer))
+(.appendChild js/document.body (:view renderer))
 
 (def stage (pi/stage 0xFFFFFF))
 
@@ -19,12 +19,12 @@
   (let [frames (build-frames)]
     (doseq [i (range max-explosions)
             :let [x (pi/movie-clip frames)]]
-      (pi/set-position! x (* (js/Math.random) 800)
-                          (* (js/Math.random) 600))
-      (pi/set-anchor! x 0.5 0.5)
-      (set! (.-rotation x) (* (js/Math.random) js/Math.PI))
+      (pi/set-position! x [(* (js/Math.random) 800)
+                           (* (js/Math.random) 600)])
+      (pi/set-anchor! x [0.5 0.5])
+      (pi/set-rotation! x (* (js/Math.random) js/Math.PI))
       (.gotoAndPlay x (* (js/Math.random) 27))
-      (.addChild stage x))))
+      (pi/add! stage x))))
 
 (def loader (pi/assets-loader ["SpriteSheet.json"] on-loaded))
 
@@ -32,7 +32,7 @@
 
 (defn animate
   []
-  (.render renderer stage)
+  (pi/render! renderer stage)
   (js/requestAnimFrame animate))
 
 (animate)

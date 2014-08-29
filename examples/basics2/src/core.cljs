@@ -3,7 +3,7 @@
 
 (def stage (pi/stage))
 
-(def renderer (pi/renderer-auto 1024 768 nil true true))
+(def renderer (pi/renderer-auto [1024 768] nil true true))
 
 (.appendChild js/document.body (.-view renderer))
 
@@ -11,11 +11,12 @@
 
 (def sprite (pi/sprite-from-image img-url))
 
-(pi/set-position! sprite 0 0)
+(pi/set-position! sprite [0 0])
 
-(pi/set-pivot! sprite (/ (.-width sprite) 2) (/ (.-height sprite) 2))
+(pi/set-pivot! sprite [(/ (:width sprite) 2)
+                       (/ (:height sprite) 2)])
 
-(.addChild stage sprite)
+(pi/add! stage sprite)
 
 (defn animate
   []

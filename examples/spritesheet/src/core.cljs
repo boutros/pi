@@ -5,8 +5,7 @@
 (def alien-frames ["eggHead.png" "flowerTop.png" "helmlok.png" "skully.png"])
 (def aliens (atom []))
 (def alien-container (pi/container))
-(set! (.-position.x alien-container) 400)
-(set! (.-position.y alien-container) 300)
+(pi/set-position! alien-container [400 300])
 
 (defn on-loaded
   []
@@ -15,11 +14,11 @@
           alien (pi/sprite-from-frame frame)]
       (set! (.-tint alien) (* (js/Math.random) 0xFFFFFF))
       (pi/set-position! alien
-                        (- (* (js/Math.random) 800) 400)
-                        (- (* (js/Math.random) 800) 300))
-      (pi/set-anchor! alien 0.5 0.5)
+                        [(- (* (js/Math.random) 800) 400)
+                         (- (* (js/Math.random) 800) 300)])
+      (pi/set-anchor! alien [0.5 0.5])
       (swap! aliens conj alien)
-      (.addChild alien-container alien))))
+      (pi/add! alien-container alien))))
 
 (def loader (pi/assets-loader ["SpriteSheet.json"] on-loaded))
 
@@ -27,7 +26,7 @@
 
 (def stage (pi/stage 0xFFFFFF))
 
-(def renderer (pi/renderer-auto 800 600))
+(def renderer (pi/renderer-auto [800 600]))
 
 (.appendChild js/document.body (.-view renderer))
 
@@ -37,9 +36,9 @@
   [count]
   (doseq [alien @aliens]
     (pi/rotate! alien 0.1))
-  (set! (.-scale.x alien-container) (js/Math.sin count))
-  (set! (.-scale.y alien-container) (js/Math.sin count))
-  (.render renderer stage)
+    (pi/set-scale! alien-container [(js/Math.sin count)
+                                   (js/Math.sin count)])
+  (pi/render! renderer stage)
   (js/requestAnimFrame #(animate (+ count 0.01))))
 
 (animate 0)

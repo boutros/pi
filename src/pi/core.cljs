@@ -1,35 +1,83 @@
-(ns pi.core)
+(ns pi.core
+  (:import goog.object))
 
-;; Renderer ---------------------------------------------------------
+;; Javascript interop -----------------------------------------------
+;;
+;; Extend javascript objects by implementing the ILookup protocol, so
+;; that we can access the object properties the same way we would
+;; using a normal clojure map.
+
+(defn strkey
+  [x]
+  (if (keyword? x) (name x) x))
+
+(extend-type object
+  ILookup
+  (-lookup
+    ([o k]
+     (aget o (strkey k)))
+    ([o k not-found]
+     (let [s (strkey k)]
+       (if (goog.object.containsKey o s)
+         (aget o s)
+         not-found)))))
+
+
+;; Protocols --------------------------------------------------------
+
+(defprotocol IContain
+  (add! [this entity]))
+
+(defprotocol IRender
+  (render! [this entity]))
+
+
+;; Renderers --------------------------------------------------------
+
+(extend-type js/PIXI.CanvasRenderer
+  IRender
+  (render! [this entity]
+    (.render this entity)))
+
+(extend-type js/PIXI.WebGLRenderer
+  IRender
+  (render! [this entity]
+    (.render this entity)))
 
 (defn renderer-auto
-  ([width height]
+  ([[width height]]
     (js/PIXI.autoDetectRenderer width height))
-  ([width height canvas]
+  ([[width height] canvas]
     (js/PIXI.autoDetectRenderer width height canvas))
-  ([width height canvas antialias]
+  ([[width height] canvas antialias]
     (js/PIXI.autoDetectRenderer width height canvas antialias))
-  ([width height canvas antialias transparent]
+  ([[width height] canvas antialias transparent]
     (js/PIXI.autoDetectRenderer width height canvas antialias transparent)))
 
 (defn renderer-canvas
-  [width height]
+  [[width height]]
   (js/PIXI.CanvasRenderer width height))
 
 (defn renderer-webgl
-  [width height]
+  [[width height]]
   (js/PIXI.WebGLRenderer width height))
 
 
 ;; Stage ------------------------------------------------------------
 
+(extend-type js/PIXI.Stage
+  IContain
+  (add! [this entity]
+    (.addChild this entity)))
+
 (defn stage
   ([]
-    (js/PIXI.Stage. 0x000000))
+    (stage 0x000000 false))
   ([color]
-    (js/PIXI.Stage. color))
+    (stage color false))
   ([color interactivity]
     (js/PIXI.Stage. color interactivity)))
+
 
 ;; Graphics primitives ----------------------------------------------
 ;;
@@ -83,6 +131,7 @@
   (.drawRect g x1 y1 x2 y2)
   g)
 
+
 ;; Assets -----------------------------------------------------------
 
 (defn assets-loader
@@ -91,11 +140,18 @@
     (set! (.-onComplete loader) on-complete)
     loader))
 
+
 ;; Containers -------------------------------------------------------
+
+(extend-type js/PIXI.DisplayObjectContainer
+  IContain
+  (add! [this entity]
+    (.addChild this entity)))
 
 (defn container
   []
   (js/PIXI.DisplayObjectContainer.))
+
 
 ;; Textures ---------------------------------------------------------
 
@@ -116,11 +172,12 @@
 
 (defn sprite-from-image
   [image]
-  (js/PIXI.Sprite.fromImage image false))
+  (js/PIXI.Sprite.fromImage image true))
 
 (defn sprite-from-frame
   [frame]
   (js/PIXI.Sprite.fromFrame frame))
+
 
 ;; MovieClip --------------------------------------------------------
 
@@ -128,29 +185,34 @@
   [frames]
   (js/PIXI.MovieClip. (into-array frames)))
 
-;; Sprite/Container/MovieClip util functions -------------------------
+
+;; Sprite/Container/MovieClip mutate functions ----------------------
 
 (defn set-position!
-  [entity x y]
+  [entity [x y]]
   (do
     (set! (.-position.x entity) x)
     (set! (.-position.y entity) y)))
 
 (defn set-scale!
-  [entity x y]
+  [entity [x y]]
   (do
     (set! (.-scale.x entity) x)
     (set! (.-scale.y entity) y)))
 
 (defn set-anchor!
-  [entity x y]
+  [entity [x y]]
   (do
     (set! (.-anchor.x entity) x)
     (set! (.-anchor.y entity) y)))
 
 (defn set-pivot!
-  [entity x y]
+  [entity [x y]]
   (.set (.-pivot entity) x y))
+
+(defn set-rotation!
+  [entity r]
+  (set! (.-rotation entity) r))
 
 (defn rotate!
   [entity r]

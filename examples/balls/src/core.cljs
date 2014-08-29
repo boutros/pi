@@ -14,7 +14,7 @@
 (def slide-Y (atom (/ @h 2)))
 (def balls #js [])
 
-(def renderer (pi/renderer-auto @w @h))
+(def renderer (pi/renderer-auto [@w @h]))
 
 (defn resize
   []
@@ -36,7 +36,7 @@
 
 (.addEventListener (by-id "rnd") "click" new-wave false)
 
-(.appendChild js/document.body (.-view renderer))
+(.appendChild js/document.body (:view renderer))
 
 (set! (.-onresize js/window) resize)
 
@@ -47,31 +47,31 @@
 (defn update
   []
   (doseq [b balls]
-    (set! (.-position.x (.-sprite b)) (+ (.-x b) @slide-X))
-    (set! (.-position.y (.-sprite b)) (+ (.-y b) @slide-Y))
+    (pi/set-position! (:sprite b)
+                      [(+ (:x b) @slide-X)
+                       (+ (:y b) @slide-Y)])
     (set! (.-x b) (* (.-x b) @sx))
     (set! (.-y b) (* (.-y b) @sy))
     (when (> (.-x b) @w)
-      (set! (.-x b) (- (.-x b) @w)))
+      (set! (.-x b) (- (:x b) @w)))
     (when (< (.-x b) (- @w))
-      (set! (.-x b) (+ (.-x b) @w)))
+      (set! (.-x b) (+ (:x b) @w)))
     (when (> (.-y b) @h)
-      (set! (.-y b) (- (.-y b) @h)))
+      (set! (.-y b) (- (:y b) @h)))
     (when (< (.-y b) (- @h))
-      (set! (.-y b) (+ (.-y b) @h)))
-    )
-  (.render renderer stage)
+      (set! (.-y b) (+ (:y b) @h))))
+  (pi/render! renderer stage)
   (js/requestAnimFrame update))
 
 (defn start
   []
   (doseq [i (range max-balls)
           :let [ball (pi/sprite-from-texture ball-texture)]]
-    (pi/set-position! ball (- (* (js/Math.random) @w) @slide-X)
-                           (- (* (js/Math.random) @h) @slide-Y))
-    (pi/set-anchor! ball 0.5 0.5)
-    (.push balls #js {"sprite" ball "x" (.-position.x ball) "y" (.-position.y ball)})
-    (.addChild stage ball))
+    (pi/set-position! ball [(- (* (js/Math.random) @w) @slide-X)
+                            (- (* (js/Math.random) @h) @slide-Y)])
+    (pi/set-anchor! ball [0.5 0.5])
+    (.push balls #js {"sprite" ball "x" (get-in ball [:position :x]) "y" (get-in ball [:position :y])})
+    (pi/add! stage ball))
   (set! (.-innerHTML (by-id "sx")) (str "SX: " @sx "<br />SY: " @sy))
   (update))
 
