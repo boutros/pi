@@ -22,6 +22,6 @@
   []
   (js/requestAnimFrame animate)
   (pi/rotate! sprite 0.1)
-  (.render renderer stage))
+  (pi/render! renderer stage))
 
 (animate)

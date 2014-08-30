@@ -5,6 +5,10 @@
   [id]
   (.getElementById js/document id))
 
+(defn set-html!
+  [id s]
+  (set! (.-innerHTML (by-id id)) s))
+
 (def max-balls 2500)
 (def w (atom 1024))
 (def h (atom 768))
@@ -32,7 +36,7 @@
   (do
     (reset! sx (inc (/ (js/Math.random) 20)))
     (reset! sy (inc (/ (js/Math.random) 20)))
-    (set! (.-innerHTML (by-id "sx")) (str "SX: " @sx "<br />SY: " @sy))))
+    (set-html! "sx" (str "SX: " @sx "<br />SY: " @sy))))
 
 (.addEventListener (by-id "rnd") "click" new-wave false)
 
