@@ -31,6 +31,10 @@
 (defprotocol IRender
   (render! [this entity]))
 
+(defprotocol IInteractive
+  (set-interactive! [this interactive])
+  (set-handler! [this events handler]))
+
 
 ;; Renderers --------------------------------------------------------
 
@@ -68,7 +72,15 @@
 (extend-type js/PIXI.Stage
   IContain
   (add! [this entity]
-    (.addChild this entity)))
+    (.addChild this entity))
+  IInteractive
+  (set-interactive! [this interactive]
+    (set! (.-interactive this) interactive))
+  (set-handler! [this events handler]
+    (if (vector? events)
+      (doseq [e events]
+        (aset this (strkey e) handler))
+      (aset this (strkey events) handler))))
 
 (defn stage
   ([]
@@ -165,6 +177,16 @@
 
 
 ;; Sprites ----------------------------------------------------------
+
+(extend-type js/PIXI.Sprite
+  IInteractive
+  (set-interactive! [this interactive]
+    (set! (.-interactive this) interactive))
+  (set-handler! [this events handler]
+    (if (vector? events)
+      (doseq [e events]
+        (aset this (strkey e) handler))
+      (aset this (strkey events) handler))))
 
 (defn sprite-from-texture
   [texture]

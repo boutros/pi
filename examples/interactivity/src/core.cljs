@@ -49,12 +49,12 @@
              button (pi/sprite-from-texture button-texture)]]
   (pi/set-anchor! button [0.5 0.5])
   (pi/set-position! button [(first pos) (last pos)])
-  (set! (.-interactive button) true)
-  (set! (.-mouseover button) mouse-over)
-  (set! (.-mouseup button) mouse-up)
-  (set! (.-mousedown button) mouse-down)
-  (set! (.-mouseout button) mouse-out)
-  (set! (.-click button) (fn [e] (js/console.log "click")))
+  (pi/set-interactive! button true)
+  (pi/set-handler! button :mouseover mouse-over)
+  (pi/set-handler! button [:mouseup :touchend] mouse-up)
+  (pi/set-handler! button [:mousedown :touchstart] mouse-down)
+  (pi/set-handler! button [:mouseout] mouse-out)
+  (pi/set-handler! button :click (fn [e] (js/console.log "click")))
   (case i
     0 (pi/set-scale! button [1.2 1])
     1 (pi/set-scale! button [1 1.2])
@@ -67,7 +67,7 @@
 
 (def logo (pi/sprite-from-image "pixi.png"))
 (pi/set-position! logo [564 368])
-(set! (.-interactive logo) true)
+(pi/set-interactive! logo true)
 (set! (.-click logo)
   (fn [e] (.open js/window "https://github.com/GoodBoyDigital/pixi.js" "_blank")))
 (pi/add! stage logo)
