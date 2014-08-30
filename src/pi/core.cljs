@@ -200,6 +200,10 @@
   [frame]
   (js/PIXI.Sprite.fromFrame frame))
 
+(defn tiling-sprite
+  [texture [w h]]
+  (js/PIXI.TilingSprite. texture w h))
+
 
 ;; MovieClip --------------------------------------------------------
 

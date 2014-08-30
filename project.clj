@@ -3,7 +3,7 @@
   :url "http://github.com/boutros/pi"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2311"]
+                 [org.clojure/clojurescript "0.0-2322"]
                  [goodboydigital/pixi "1.6.1"]
                  ]
 
@@ -68,6 +68,27 @@
                :compiler {
                 :output-to "examples/interactivity/main.js"
                 :output-dir "examples/interactivity/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "transparency"
+               :source-paths ["src" "examples/transparency/src"]
+               :compiler {
+                :output-to "examples/transparency/main.js"
+                :output-dir "examples/transparency/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "multitouch"
+               :source-paths ["src" "examples/multitouch/src"]
+               :compiler {
+                :output-to "examples/multitouch/main.js"
+                :output-dir "examples/multitouch/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "tiling"
+               :source-paths ["src" "examples/tiling/src"]
+               :compiler {
+                :output-to "examples/tiling/main.js"
+                :output-dir "examples/tiling/out"
                 :source-map true
                 :optimizations :none}}
                                    ]})
