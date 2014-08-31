@@ -72,7 +72,10 @@
 (extend-type js/PIXI.Stage
   IContain
   (add! [this entity]
-    (.addChild this entity))
+    (if (vector? entity)
+      (doseq [e entity]
+        (.addChild this e))
+      (.addChild this entity)))
   IInteractive
   (set-interactive! [this interactive]
     (set! (.-interactive this) interactive))
@@ -158,7 +161,10 @@
 (extend-type js/PIXI.DisplayObjectContainer
   IContain
   (add! [this entity]
-    (.addChild this entity)))
+    (if (vector? entity)
+      (doseq [e entity]
+        (.addChild this e))
+      (.addChild this entity))))
 
 (defn container
   []
