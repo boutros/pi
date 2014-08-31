@@ -210,6 +210,15 @@
   [texture [w h]]
   (js/PIXI.TilingSprite. texture w h))
 
+;; Text
+
+(defn text
+  [font options]
+  (js/PIXI.Text. font (clj->js options)))
+
+(defn bitmap-text
+  [font options]
+  (js/PIXI.BitmapText. font (clj->js options)))
 
 ;; MovieClip --------------------------------------------------------
 

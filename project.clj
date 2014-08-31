@@ -91,4 +91,11 @@
                 :output-dir "examples/tiling/out"
                 :source-map true
                 :optimizations :none}}
+              {:id "text"
+               :source-paths ["src" "examples/text/src"]
+               :compiler {
+                :output-to "examples/text/main.js"
+                :output-dir "examples/text/out"
+                :source-map true
+                :optimizations :none}}
                                    ]})
