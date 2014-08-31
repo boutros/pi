@@ -1,9 +1,9 @@
 (ns pi.dev
   (:require [pi.core :as pi]))
 
-(def renderer (pi/renderer-auto 640 400))
+(def renderer (pi/renderer-auto [640 400]))
 
-(.appendChild js/document.body (.-view renderer))
+(.appendChild js/document.body (:view renderer))
 
 (def g (pi/graphics))
 
@@ -18,12 +18,12 @@
 
 (def stage (pi/stage 0xfaffff))
 
-(.addChild stage g)
+(pi/add! stage g)
 
 (defn animate
   []
   (do
-    (.render renderer stage)
+    (pi/render! renderer stage)
     (js/requestAnimFrame animate)))
 
 (animate)

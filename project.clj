@@ -13,14 +13,14 @@
 
   :cljsbuild {
     :builds [{:id "dev"
-              :source-paths ["src"]
+              :source-paths ["dev"]
               :compiler {
-                :output-to "dev/pi.js"
-                :output-dir "dev/out"
-                :preamble ["pixi/pixi.dev.js"]
-                :externs ["pixi/pixi.dev.js"]
-                :optimizations :none
-                :source-map true}}
+                :output-to "dev/main.js"
+                :preamble ["pixi/pixi.js"]
+                :externs ["pixi/pixi.js"]
+                :optimizations :advanced
+                :closure-warnings {:externs-validation :off
+                                   :non-standard-jsdoc :off}}}
               {:id "basics"
                :source-paths ["src" "examples/basics/src"]
                :compiler {
