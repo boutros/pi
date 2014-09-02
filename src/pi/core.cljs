@@ -181,6 +181,9 @@
   [frame]
   (js/PIXI.Texture.fromFrame frame))
 
+(defn render-texture
+  [[width height]]
+  (js/PIXI.RenderTexture. width height))
 
 ;; Sprites ----------------------------------------------------------
 

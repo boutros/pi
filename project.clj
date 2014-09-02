@@ -98,4 +98,11 @@
                 :output-dir "examples/text/out"
                 :source-map true
                 :optimizations :none}}
+              {:id "textures"
+               :source-paths ["src" "examples/textures/src"]
+               :compiler {
+                :output-to "examples/textures/main.js"
+                :output-dir "examples/textures/out"
+                :source-map true
+                :optimizations :none}}
                                    ]})
