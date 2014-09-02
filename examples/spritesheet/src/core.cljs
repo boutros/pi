@@ -28,9 +28,9 @@
 
 (def renderer (pi/renderer-auto [800 600]))
 
-(.appendChild js/document.body (.-view renderer))
+(.appendChild js/document.body (:view renderer))
 
-(.addChild stage alien-container)
+(pi/add! stage alien-container)
 
 (defn animate
   [count]
