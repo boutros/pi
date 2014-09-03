@@ -218,7 +218,15 @@
   [texture [w h]]
   (js/PIXI.TilingSprite. texture w h))
 
-;; Text
+
+;; Spine ------------------------------------------------------------
+
+(defn spine
+  [data]
+  (js/PIXI.Spine. data))
+
+
+;; Text -------------------------------------------------------------
 
 (defn text
   [font options]

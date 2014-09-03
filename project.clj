@@ -105,4 +105,32 @@
                 :output-dir "examples/textures/out"
                 :source-map true
                 :optimizations :none}}
+              {:id "spine"
+               :source-paths ["src" "examples/spine/src"]
+               :compiler {
+                :output-to "examples/spine/main.js"
+                :output-dir "examples/spine/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "spine2"
+               :source-paths ["src" "examples/spine2/src"]
+               :compiler {
+                :output-to "examples/spine2/main.js"
+                :output-dir "examples/spine2/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "spine3"
+               :source-paths ["src" "examples/spine3/src"]
+               :compiler {
+                :output-to "examples/spine3/main.js"
+                :output-dir "examples/spine3/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "spine4"
+               :source-paths ["src" "examples/spine4/src"]
+               :compiler {
+                :output-to "examples/spine4/main.js"
+                :output-dir "examples/spine4/out"
+                :source-map true
+                :optimizations :none}}
                                    ]})
