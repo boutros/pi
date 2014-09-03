@@ -26,9 +26,7 @@
       (.gotoAndPlay x (* (js/Math.random) 27))
       (pi/add! stage x))))
 
-(def loader (pi/assets-loader ["SpriteSheet.json"] on-loaded))
-
-(.load loader)
+(pi/load-assets ["SpriteSheet.json"] on-loaded)
 
 (defn animate
   []

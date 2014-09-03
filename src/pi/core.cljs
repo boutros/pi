@@ -155,6 +155,11 @@
     (set! (.-onComplete loader) on-complete)
     loader))
 
+(defn load-assets
+  [assets on-complete]
+  (let [loader (assets-loader assets on-complete)]
+    (.load loader)))
+
 
 ;; Containers -------------------------------------------------------
 

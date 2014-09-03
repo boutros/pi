@@ -20,9 +20,7 @@
       (swap! aliens conj alien)
       (pi/add! alien-container alien))))
 
-(def loader (pi/assets-loader ["SpriteSheet.json"] on-loaded))
-
-(.load loader)
+(pi/load-assets ["SpriteSheet.json"] on-loaded)
 
 (def stage (pi/stage 0xFFFFFF))
 

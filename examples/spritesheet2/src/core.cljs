@@ -28,10 +28,4 @@
     (pi/add! stage movie)
     (animate movie)))
 
-(def loader (pi/assets-loader ["fighter.json"] on-loaded))
-
-(.load loader)
-
-
-
-
+(pi/load-assets ["fighter.json"] on-loaded)
