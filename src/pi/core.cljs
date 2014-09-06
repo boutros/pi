@@ -127,23 +127,32 @@
   g)
 
 (defn line-style
-  [g width color alpha]
-  (.lineStyle g width color alpha)
-  g)
+  ([g width]
+    (line-style g width 0x000000 1))
+  ([g width color]
+    (line-style g width color 1))
+  ([g width color alpha]
+    (.lineStyle g width color alpha)
+    g))
 
 (defn move-to
-  [g x y]
+  [g [x y]]
   (.moveTo g x y)
   g)
 
 (defn line-to
-  [g x y]
+  [g [x y]]
   (.lineTo g x y)
   g)
 
 (defn draw-rect
-  [g x1 y1 x2 y2]
+  [g [x1 y1 x2 y2]]
   (.drawRect g x1 y1 x2 y2)
+  g)
+
+(defn draw-circle
+  [g [x y] r]
+  (.drawCircle g x y r)
   g)
 
 

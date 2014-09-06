@@ -133,4 +133,11 @@
                 :output-dir "examples/spine4/out"
                 :source-map true
                 :optimizations :none}}
+              {:id "graphics"
+               :source-paths ["src" "examples/graphics/src"]
+               :compiler {
+                :output-to "examples/graphics/main.js"
+                :output-dir "examples/graphics/out"
+                :source-map true
+                :optimizations :none}}
                                    ]})
