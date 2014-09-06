@@ -141,8 +141,10 @@
   g)
 
 (defn line-to
-  [g [x y]]
+  [g [x y] & more]
   (.lineTo g x y)
+  (doseq [[x y] more]
+    (.lineTo g x y))
   g)
 
 (defn draw-rect
