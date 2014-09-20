@@ -140,4 +140,32 @@
                 :output-dir "examples/graphics/out"
                 :source-map true
                 :optimizations :none}}
+              {:id "masking"
+               :source-paths ["src" "examples/masking/src"]
+               :compiler {
+                :output-to "examples/masking/main.js"
+                :output-dir "examples/masking/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "filters"
+               :source-paths ["src" "examples/filters/src"]
+               :compiler {
+                :output-to "examples/filters/main.js"
+                :output-dir "examples/filters/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "filters2"
+               :source-paths ["src" "examples/filters2/src"]
+               :compiler {
+                :output-to "examples/filters2/main.js"
+                :output-dir "examples/filters2/out"
+                :source-map true
+                :optimizations :none}}
+              {:id "filters3"
+               :source-paths ["src" "examples/filters3/src"]
+               :compiler {
+                :output-to "examples/filters3/main.js"
+                :output-dir "examples/filters3/out"
+                :source-map true
+                :optimizations :none}}
                                    ]})

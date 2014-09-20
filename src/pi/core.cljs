@@ -158,6 +158,13 @@
   g)
 
 
+;; Areas ------------------------------------------------------------
+
+(defn rectangle
+  [[x y] [x2 y2]]
+  (js/PIXI.Rectangle. x y x2 y2))
+
+
 ;; Assets -----------------------------------------------------------
 
 (defn assets-loader
@@ -201,6 +208,7 @@
   [[width height]]
   (js/PIXI.RenderTexture. width height))
 
+
 ;; Sprites ----------------------------------------------------------
 
 (extend-type js/PIXI.Sprite
@@ -228,6 +236,24 @@
 (defn tiling-sprite
   [texture [w h]]
   (js/PIXI.TilingSprite. texture w h))
+
+
+;; Filters ----------------------------------------------------------
+
+;; TODO (defn filter [type]) instead?
+;; -> (filter :color-matrix) (filter :blur) etc
+
+(defn color-matrix-filter
+  []
+  (js/PIXI.ColorMatrixFilter.))
+
+(defn blur-filter
+  []
+  (js/PIXI.BlurFilter.))
+
+(defn displacement-filter
+  [texture]
+  (js/PIXI.DisplacementFilter. texture))
 
 
 ;; Spine ------------------------------------------------------------
