@@ -10,10 +10,10 @@
 (-> g
   (pi/line-style 10 0x10aa33 1)
   (pi/begin-fill 0xaa0000)
-  (pi/move-to 10 10)
-  (pi/line-to 50 100)
-  (pi/line-to 50 200)
-  (pi/draw-rect 0 0 50 50)
+  (pi/move-to [10 10])
+  (pi/line-to [50 100])
+  (pi/line-to [50 200])
+  (pi/draw-rect [0 0 50 50])
   (pi/end-fill))
 
 (def stage (pi/stage 0xfaffff))
