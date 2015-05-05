@@ -153,11 +153,20 @@
   (.drawCircle g x y r)
   g)
 
-;; Areas ------------------------------------------------------------
+(defn draw
+  [g shape]
+  (.drawShape g shape)
+  g)
+
+;; Areas (shapes) ---------------------------------------------------
 
 (defn rectangle
   [[x y] [x2 y2]]
   (js/PIXI.Rectangle. x y x2 y2))
+
+(defn circle
+  [[x y] r]
+  (js/PIXI.Circle. x y r))
 
 
 ;; Assets -----------------------------------------------------------
