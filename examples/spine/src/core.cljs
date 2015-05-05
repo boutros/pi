@@ -15,19 +15,19 @@
 
 (defn init
   []
-  (let [spine-boy (pi/spine "data/spineboySpineData.json")]
+  (let [spine-boy (pi/spine "data/spineboy.json")]
     (pi/set-position! spine-boy [(/ w 2) h])
     (pi/set-scale! spine-boy [(/ h 400) (/ h 400)])
     (.setMixByName (:stateData spine-boy) "walk" "jump" 0.2)
     (.setMixByName (:stateData spine-boy) "jump" "walk" 0.4)
-    (.setAnimationByName (:state spine-boy) "walk" true)
+    (.setAnimationByName (:state spine-boy) 0 "walk" true)
     (pi/add! stage spine-boy)
     (pi/set-handler! stage [:click :tap]
       (fn [e]
-        (.setAnimationByName (:state spine-boy) "jump" false)
-        (.addAnimationByName (:state spine-boy) "walk" true)))))
+        (.setAnimationByName (:state spine-boy) 0 "jump" false)
+        (.addAnimationByName (:state spine-boy) 0 "walk" true 0)))))
 
-(pi/load-assets ["data/spineboy.json" "data/spineboySpineData.json"] init)
+(pi/load-assets ["data/spineboy.json"] init)
 
 (defn animate
   []

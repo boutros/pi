@@ -13,19 +13,29 @@
 
 (.appendChild js/document.body (:view renderer))
 
-(defn init
-  []
-  (let [dragon (pi/spine "data/dragonBonesData.json")]
-    (pi/set-position! dragon [(/ w 2) (+ (/ h 2) 450)])
-    (pi/set-scale! dragon [1 1])
-    (.setAnimationByName (:state dragon) "flying" true)
-    (pi/add! stage dragon)))
-
-(pi/load-assets ["data/dragonBones.json" "data/dragonBonesData.json"] init)
-
 (defn animate
-  []
-  (js/requestAnimFrame animate)
+  [dragon]
+  (.update dragon 0.01666666666667) ; hardcoded frame rate
+  (js/requestAnimFrame #(animate dragon))
   (pi/render! renderer stage))
 
-(animate)
+(defn init
+  []
+  (let [dragon (pi/spine "data/dragon.json")
+        cage (pi/container)
+        local-rect (.getLocalBounds dragon)]
+    (.setToSetupPose (.-skeleton dragon))
+    (.update dragon 0)
+    (set! (.-autoUpdate dragon) false)
+    (pi/set-position! dragon [(- (:x local-rect))(- (:y local-rect))])
+    (pi/add! cage dragon)
+    (let [scale (.min js/Math (/ (* w 0.7) (:width cage))
+                            (/ (* h 0.7) (:height cage)))]
+      (pi/set-scale! cage [(/ (* h 0.7) (:height cage)) scale]))
+    (pi/set-position! cage [(* (- w (:width cage)) 0.5)
+                            (* (- h (:height cage)) 0.5)])
+    (pi/add! stage cage)
+    (.setAnimationByName (:state dragon) 0 "flying" true)
+    (animate dragon)))
+
+(pi/load-assets ["data/dragon.json"] init)

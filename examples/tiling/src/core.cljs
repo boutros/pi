@@ -9,6 +9,9 @@
 (def renderer (pi/renderer-auto [w h]))
 
 (.appendChild js/document.body (:view renderer))
+(set! (.. renderer -view -style -position) "absolute")
+(set! (.. renderer -view -style -top) "0px")
+(set! (.. renderer -view -style -left) "0px")
 
 (def texture (pi/texture-from-image "p2.jpeg"))
 (def tile (pi/tiling-sprite texture [w h]))

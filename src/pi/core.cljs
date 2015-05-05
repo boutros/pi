@@ -51,12 +51,8 @@
 (defn renderer-auto
   ([[width height]]
     (js/PIXI.autoDetectRenderer width height))
-  ([[width height] canvas]
-    (js/PIXI.autoDetectRenderer width height canvas))
-  ([[width height] canvas antialias]
-    (js/PIXI.autoDetectRenderer width height canvas antialias))
-  ([[width height] canvas antialias transparent]
-    (js/PIXI.autoDetectRenderer width height canvas antialias transparent)))
+  ([[width height] options]
+    (js/PIXI.autoDetectRenderer width height (clj->js options))))
 
 (defn renderer-canvas
   [[width height]]
@@ -156,7 +152,6 @@
   [g [x y] r]
   (.drawCircle g x y r)
   g)
-
 
 ;; Areas ------------------------------------------------------------
 

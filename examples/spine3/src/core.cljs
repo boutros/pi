@@ -48,7 +48,7 @@
         fg    (pi/sprite-from-image "data/iP4_ground.png")
         fg2   (pi/sprite-from-image "data/iP4_ground.png")
         fgy   (- 640 (:height fg2))
-        pixie (pi/spine "data/PixieSpineData.json")
+        pixie (pi/spine "data/Pixie.json")
         x     341
         y     500]
     (pi/set-position! fg [0 fgy])
@@ -58,15 +58,14 @@
     (pi/set-position! pixie [x y])
     (.setMixByName (:stateData pixie) "running" "jump" 0.2)
     (.setMixByName (:stateData pixie) "jump" "running" 0.4)
-    (.setAnimationByName (:state pixie) "running" true)
+    (.setAnimationByName (:state pixie) 0 "running" true)
     (pi/set-handler! stage [:mousedown :touchstart]
       (fn [e]
-        (.setAnimationByName (:state pixie) "jump" false)
-        (.addAnimationByName (:state pixie) "running" true)))
+        (.setAnimationByName (:state pixie) 0 "jump" false)
+        (.addAnimationByName (:state pixie) 0 "running" true 0)))
     (animate bg bg2 fg fg2 0)))
 
 (pi/load-assets
-  ["data/PixieSpineData.json" "data/Pixie.json"
-   "data/iP4_BGtile.jpg" "data/iP4_ground.png"]
+  ["data/Pixie.json" "data/iP4_BGtile.jpg" "data/iP4_ground.png"]
   init)
 

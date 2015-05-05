@@ -7,6 +7,7 @@
 
 (def g (pi/graphics))
 
+
 (-> g
   (pi/line-style 10 0x10aa33 1)
   (pi/begin-fill 0xaa0000)

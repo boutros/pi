@@ -2,12 +2,11 @@
   :description "Clojurecsript wrapper for pixi.js"
   :url "http://github.com/boutros/pi"
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [org.clojure/clojurescript "0.0-2322"]
-                 [goodboydigital/pixi "1.6.1"]
-                 ]
+  :dependencies [[org.clojure/clojure "1.7.0-beta2"]
+                 [org.clojure/clojurescript "0.0-3211"]
+                 [goodboydigital/pixi "2.2.7"]]
 
-  :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
+  :plugins [[lein-cljsbuild "1.0.5"]]
 
   :source-paths ["src"]
 

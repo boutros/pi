@@ -3,7 +3,7 @@
 
 (def stage (pi/stage 0x66FF99))
 
-(def renderer (pi/renderer-auto [400 300] nil true))
+(def renderer (pi/renderer-auto [400 300] {:transparent true}))
 (.appendChild js/document.body (:view renderer))
 (set! (.. renderer -view -style -position) "absolute")
 (set! (.. renderer -view -style -top) "0px")

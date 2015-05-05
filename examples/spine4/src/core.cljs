@@ -19,12 +19,12 @@
 
 (defn init
   []
-  (let [goblin (pi/spine "data/goblinsSpineData.json")]
+  (let [goblin (pi/spine "data/goblins.json")]
     (pi/set-position! goblin [(/ w 2) h])
     (pi/set-scale! goblin [(/ h 400) (/ h 400)])
     (.setSkinByName (:skeleton goblin) "goblin")
     (.setSlotsToSetupPose (:skeleton goblin))
-    (.setAnimationByName (:state goblin) "walk" true)
+    (.setAnimationByName (:state goblin) 0 "walk" true)
     (pi/add! stage goblin)
     (pi/set-handler! stage [:click :tap]
       (fn [e]
@@ -34,6 +34,4 @@
           (.setSlotsToSetupPose (:skeleton goblin)))))
     (animate)))
 
-(pi/load-assets
-  ["data/goblins.json" "data/goblinsSpineData.json"]
-  init)
+(pi/load-assets ["data/goblins.json"] init)
